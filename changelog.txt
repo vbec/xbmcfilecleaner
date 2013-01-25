@@ -1,7 +1,8 @@
-Version 2.1.0
+Version 3.0.0
 ===============
 - Frodo compatibility
 - Music videos support (use TheAudioDB.com scraper)
+- Split into a program part (one cleaning pass) and a service (monitoring in the background)
 - Queries now use databases' views to get expired items
 - No more individual notifications, but a summary instead (see logs for more details)
 - Removed obsolete FAQ section

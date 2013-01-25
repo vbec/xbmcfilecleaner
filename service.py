@@ -23,18 +23,45 @@ class Cleaner:
 
     def __init__(self):
         """
-        Create a Cleaner object that performs cleaning of watched videos.
+        Create a Cleaner object that performs regular cleaning of watched videos.
         """
+        # TODO: Check if addon is set to run as a service, to prevent multiple running threads
+
+        # TODO: Modify the loop timing to use the system time in checking if an interval has passed 
         self.reload_settings()
+
+        self.service_sleep = 10
+        scanInterval_ticker = self.scanInterval * 60 / self.service_sleep
+        delayedStart_ticker = self.delayedStart * 60 / self.service_sleep
+        ticker = 0
+        delayed_completed = False
 
         if self.deletingEnabled:
             self.notify(__settings__.getLocalizedString(34005))
-            # TODO should be removed: http://ziade.org/2008/01/08/syssetdefaultencoding-is-evil/
-            reload(sys)
-            sys.setdefaultencoding("utf-8")
-            self.cleanup()
-        else:
-            self.notify(__settings__.getLocalizedString(34007))
+
+        # TODO should be removed: http://ziade.org/2008/01/08/syssetdefaultencoding-is-evil/
+        reload(sys)
+        sys.setdefaultencoding("utf-8")
+
+        while not xbmc.abortRequested and self.deletingEnabled:
+            self.reload_settings()
+
+            if not self.deletingEnabled:
+                break
+
+            if delayed_completed == True and ticker == scanInterval_ticker:
+                self.cleanup()
+                ticker = 0
+            elif delayed_completed == False and ticker == delayedStart_ticker:
+                delayed_completed = True
+                self.cleanup()
+                ticker = 0
+
+            time.sleep(self.service_sleep)
+            ticker += 1
+
+        # Cleaning is disabled or abort is requested by XBMC, so do nothing
+        self.notify(__settings__.getLocalizedString(34007))
 
     def cleanup(self):
         """
