@@ -8,17 +8,18 @@
     <!-- Algemeen -->
     <string id="31001">[B]Algemene opties voor XBMC File Cleaner[/B]</string>
     <string id="31002">Activeer verwijderen van bestanden</string>
+    <string id="31003">Uitvoeren als service</string>
     
-    <string id="31003">Wachttijd bij opstarten (in minuten)</string>
-    <string id="31004">Scan-interval (in minuten)</string>
+    <string id="31004">Wachttijd bij opstarten (in minuten)</string>
+    <string id="31005">Scan-interval (in minuten)</string>
     
-    <string id="31005">Toon notificaties</string>
-    <string id="31006">Toon debuginformatie</string>
+    <string id="31006">Toon notificaties</string>
+    <string id="31007">Toon debuginformatie</string>
     
-    <string id="31007">Videobibliotheek opschonen na verwijderen</string>
-    <string id="31008">Verwijder films</string>
-    <string id="31009">Verwijder TV series</string>
-    <string id="31010">Verwijder videoclips</string>
+    <string id="31008">Videobibliotheek opschonen na verwijderen</string>
+    <string id="31009">Verwijder films</string>
+    <string id="31010">Verwijder TV series</string>
+    <string id="31011">Verwijder videoclips</string>
     
     
     <!-- Criteria -->
@@ -50,7 +51,7 @@
     <string id="34004">Bibliotheek opschonen</string>
     <string id="34005">Reiniger gestart</string>
     <string id="34006">%s verwijderd uit %s</string>
-    <string id="34007">Schoonmaken niet geactiveerd</string>
+    <string id="34007">Stopsignaal ontvangen. Afsluiten.</string>
     <string id="34008">Er is een fout opgetreden: '%s'</string>
     <string id="34009">Verplaatsen van bestand mislukt. %s bestaat niet.</string>
     <string id="34010">Verplaatsen van bestand mislukt. Doelmap %s kan niet worden gevonden.</string>

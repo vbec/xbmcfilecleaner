@@ -25,43 +25,39 @@ class Cleaner:
         """
         Create a Cleaner object that performs regular cleaning of watched videos.
         """
-        # TODO: Check if addon is set to run as a service, to prevent multiple running threads
-
-        # TODO: Modify the loop timing to use the system time in checking if an interval has passed 
         self.reload_settings()
 
-        self.service_sleep = 10
-        scanInterval_ticker = self.scanInterval * 60 / self.service_sleep
-        delayedStart_ticker = self.delayedStart * 60 / self.service_sleep
+        service_sleep = 10
         ticker = 0
+        scanInterval_ticker = self.scanInterval * 60 / service_sleep
+        delayedStart_ticker = self.delayedStart * 60 / service_sleep
         delayed_completed = False
-
-        if self.deletingEnabled:
-            self.notify(__settings__.getLocalizedString(34005))
 
         # TODO should be removed: http://ziade.org/2008/01/08/syssetdefaultencoding-is-evil/
         reload(sys)
         sys.setdefaultencoding("utf-8")
 
-        while not xbmc.abortRequested and self.deletingEnabled:
+        while not xbmc.abortRequested:
             self.reload_settings()
 
             if not self.deletingEnabled:
-                break
+                continue
+            elif  not self.runAsService:
+                continue
+            else:
+                if delayed_completed == True and ticker == scanInterval_ticker:
+                    self.cleanup()
+                    ticker = 0
+                elif delayed_completed == False and ticker == delayedStart_ticker:
+                    delayed_completed = True
+                    self.cleanup()
+                    ticker = 0
 
-            if delayed_completed == True and ticker == scanInterval_ticker:
-                self.cleanup()
-                ticker = 0
-            elif delayed_completed == False and ticker == delayedStart_ticker:
-                delayed_completed = True
-                self.cleanup()
-                ticker = 0
+                time.sleep(service_sleep)
+                ticker += 1
 
-            time.sleep(self.service_sleep)
-            ticker += 1
-
-        # Cleaning is disabled or abort is requested by XBMC, so do nothing
-        self.notify(__settings__.getLocalizedString(34007))
+        # Abort is requested by XBMC: terminate
+        self.debug(__settings__.getLocalizedString(34007))
 
     def cleanup(self):
         """
@@ -272,6 +268,7 @@ class Cleaner:
         """
         __settings__ = xbmcaddon.Addon(__addonID__)
 
+        self.runAsService = bool(__settings__.getSetting("run_as_service") == "true")
         self.deletingEnabled = bool(__settings__.getSetting("service_enabled") == "true")
         self.delayedStart = float(__settings__.getSetting("delayed_start"))
         self.scanInterval = float(__settings__.getSetting("scan_interval"))
@@ -456,6 +453,6 @@ class Cleaner:
         logs a debug message
         """
         if self.debuggingEnabled:
-            xbmc.log(__title__ + "::" + message)
+            xbmc.log(__title__ + ": " + message)
 
 run = Cleaner()

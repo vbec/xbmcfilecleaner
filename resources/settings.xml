@@ -4,19 +4,20 @@
         <setting type="sep" />
         <setting label="31001" type="lsep" />
         <setting type="sep" />
+
+        <setting id="service_enabled" type="bool" label="31002" default="false" />
+        <setting id="run_as_service" type="bool" label="31003" default="false" />
         
-        <setting id="service_enabled" type="bool" label="31002" default="false"/>
+        <setting id="delayed_start" type="slider" label="31004" default="0" range="0,10,120" option="int" visible="eq(-1,true) + eq(-2,true)" />
+        <setting id="scan_interval" type="slider" label="31005" default="30" range="5,5,120" option="int" visible="eq(-2,true) + eq(-3,true)" />
         
-        <setting id="delayed_start" type="slider" label="31003" default="0" range="0,10,120" option="int" visible="eq(-1,true)" />
-        <setting id="scan_interval" type="slider" label="31004" default="30" range="5,5,120" option="int" visible="eq(-2,true)" />
+        <setting id="show_notifications" type="bool" label="31006" default="true" visible="eq(-4,true)" />
+        <setting id="enable_debug" type="bool" label="31007" default="false" visible="eq(-5,true)" />
         
-        <setting id="show_notifications" type="bool" label="31005" default="true" visible="eq(-3,true)" />
-        <setting id="enable_debug" type="bool" label="31006" default="false" visible="eq(-4,true)" />
-        
-        <setting id="clean_library" type="bool" label="31007" default="true" visible="eq(-5,true)" />
-        <setting id="delete_movies" type="bool" label="31008" default="false" visible="eq(-6,true)" />
-        <setting id="delete_tvshows" type="bool" label="31009" default="false" visible="eq(-7,true)" />
-        <setting id="delete_musicvideos" type="bool" label="31010" default="false" visible="eq(-8,true)" />
+        <setting id="clean_library" type="bool" label="31008" default="true" visible="eq(-6,true)" />
+        <setting id="delete_movies" type="bool" label="31009" default="false" visible="eq(-7,true)" />
+        <setting id="delete_tvshows" type="bool" label="31010" default="false" visible="eq(-8,true)" />
+        <setting id="delete_musicvideos" type="bool" label="31011" default="false" visible="eq(-9,true)" />
         
         <!-- This was used for backward compatibility with Dharma, which did not have service addons. Deprecated.
         <setting id="remove_from_autoexec" type="bool" label="" default="true" visible="false" />

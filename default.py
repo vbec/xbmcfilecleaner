@@ -246,8 +246,6 @@ class Cleaner:
         __settings__ = xbmcaddon.Addon(__addonID__)
 
         self.deletingEnabled = bool(__settings__.getSetting("service_enabled") == "true")
-        self.delayedStart = float(__settings__.getSetting("delayed_start"))
-        self.scanInterval = float(__settings__.getSetting("scan_interval"))
 
         self.notificationsEnabled = bool(__settings__.getSetting("show_notifications") == "true")
         self.debuggingEnabled = bool(xbmc.translatePath(__settings__.getSetting("enable_debug")) == "true")
@@ -429,6 +427,6 @@ class Cleaner:
         logs a debug message
         """
         if self.debuggingEnabled:
-            xbmc.log(__title__ + "::" + message)
+            xbmc.log(__title__ + ": " + message)
 
 run = Cleaner()
