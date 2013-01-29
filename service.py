@@ -29,6 +29,8 @@ class Cleaner:
 
         service_sleep = 10
         ticker = 0
+        scanInterval_ticker = self.scanInterval * 60 / service_sleep
+        delayedStart_ticker = self.delayedStart * 60 / service_sleep
         delayed_completed = False
 
         # TODO should be removed: http://ziade.org/2008/01/08/syssetdefaultencoding-is-evil/
@@ -38,18 +40,15 @@ class Cleaner:
         while not xbmc.abortRequested:
             self.reload_settings()
 
-            scanInterval_ticker = self.scanInterval * 60 / service_sleep
-            delayedStart_ticker = self.delayedStart * 60 / service_sleep
-
             if not self.deletingEnabled:
                 continue
             elif  not self.runAsService:
                 continue
             else:
-                if delayed_completed and ticker >= scanInterval_ticker:
+                if delayed_completed == True and ticker == scanInterval_ticker:
                     self.cleanup()
                     ticker = 0
-                elif not delayed_completed and ticker >= delayedStart_ticker:
+                elif delayed_completed == False and ticker == delayedStart_ticker:
                     delayed_completed = True
                     self.cleanup()
                     ticker = 0
