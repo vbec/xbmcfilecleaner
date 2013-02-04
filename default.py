@@ -34,7 +34,7 @@ class Cleaner:
             sys.setdefaultencoding("utf-8")
             self.cleanup()
         else:
-            self.notify(__settings__.getLocalizedString(34007))
+            self.notify(__settings__.getLocalizedString(34014))
 
     def cleanup(self):
         """

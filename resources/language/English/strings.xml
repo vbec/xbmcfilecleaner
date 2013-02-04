@@ -57,4 +57,5 @@
     <string id="34011">Hard disk capacity is 0. Did you select the correct hard disk to check for free space?</string>
     <string id="34012">Couldn't access %s</string>
     <string id="34013">No path selected to check for disk space. Please check your settings.</string>
+    <string id="34014">Deleting of files is disabled. Nothing will be deleted.</string>
 </strings>
